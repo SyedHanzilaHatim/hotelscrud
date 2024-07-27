@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const  mongoURL =  'mongodb://127.0.0.1:27017/users'
-
-mongoose.connect(mongoURL)
+//const  mongoURL =  'mongodb://127.0.0.1:27017/users'
+const  mongoURL= 'mongodb+srv://syedhanzilahatim:hatim3402@cluster0.rjuax50.mongodb.net/'
+mongoose.connect(mongoURL);
 const db = mongoose.connection;
 
 
@@ -14,8 +14,8 @@ db.on("error", (err)=>{
 
 })
 
-db.on("disconnected", ()=>{
-    console.log("MongoDB Server Disconnecter")
+db.on("disconnected", (msg)=>{
+    console.log("MongoDB Server Disconnected", msg)
 })
 
 
