@@ -7,6 +7,18 @@ const person = require('./models/person')
 const menu = require('./models/menu');
 require('dotenv').config();
 const PORT = process.env.PORT || 5000 
+const passport = require('./auth')
+const LocalStrategy = require('passport-local').Strategy;
+
+const LogRequest = (req,res,next)=>{
+    console.log(`[${new Date().toLocaleString()}] Request Made To : ${req.originalUrl}`)
+     next();
+}
+
+app.use(LogRequest);
+
+app.use(passport.initialize());
+const localAuthMiddleware = passport.authenticate('local', {session:false})
 
 app.get("/", function (req, res) {
     res.send("App Started!, Welcome To my Resturant")
@@ -25,5 +37,5 @@ app.use("/menu", menuRoutes)
 
 
 app.listen(PORT, () => {
-    console.log("Listening on 911")
+    console.log(`Listening on ${PORT}`)
 });
